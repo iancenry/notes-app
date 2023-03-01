@@ -2,10 +2,12 @@
 npm install showdown react-split nanoid showdown
 npm install react-mde --force  - use this since refuses to install
 
-### Dependencies
-react mde  - a markdown editor
-nanoid - generate ids
-showdown - transform markdown to html on client-side
+## Quick Setup
+1. Fork then clone the project into local machine 🍴
+1. run 'npm install' in the root folder to install all the necessary packages 👩‍💻
+1. Happy coding 💻
+
+* Dependencies used: react-mde, nanoid, showdown
 
 ### Check if an element exists before accessing its property
 - initialize the state either as the id of the very first note or an empty string and ensure notes at index of 0 exists before i try to access the id property of that note.
@@ -16,7 +18,6 @@ showdown - transform markdown to html on client-side
 ```
 
 ### Lazy state initilaization
-- Without it
 - How we are initializing from state when we pull from local storage since it is expensive to get item from localstorage every time state changes then triggering a re-render. It takes more effort for browser to dip into local storgae and get something every single state change, so react has implemented a way  for us to easily make it so that any expensive code that might be running inside our state initialization can happen only once - this is called lazy state initialization.
 - With every change, every code is run again even if the component doesn't use the value so with lazy state initialization we can prevent some codes from running with every render.
 - With it instead of providing a value, I can  provide a function that returns a value
@@ -32,29 +33,4 @@ showdown - transform markdown to html on client-side
     const [notes, setNotes] = React.useState(()=>(JSON.parse(localStorage.getItem("notes")) || []))
 ```
 
-> Connect with db
-
-
-    function updateNote(text) {
- 
-        // setNotes(oldNotes => {
-        //     let newNotesArray = [];
-        //     for (const note of oldNotes) {
-        //         if(note.id === currentNoteId){
-        //             newNotesArray.unshift({ ...note, body: text })
-                    
-        //         }else{
-        //             newNotesArray.push(note)
-        //         }
-                
-        //     }
-        //     return newNotesArray            
-
-        // })
-
-        setNotes(oldNotes => oldNotes.map(oldNote => {
-            return oldNote.id === currentNoteId
-                ? { ...oldNote, body: text }
-                : oldNote
-        }))
-    }
+> Connect to db
