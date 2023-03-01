@@ -1,13 +1,18 @@
 # Notes App
 npm install showdown react-split nanoid showdown
-npm install react-mde --force  - use this since refuses to install
+![1](https://user-images.githubusercontent.com/77986239/222265365-1997463c-fe48-4d4a-b5e4-26725078214a.PNG)
+
+![2](https://user-images.githubusercontent.com/77986239/222265380-2e909ce6-5a93-4567-975f-33d78d251f5c.PNG)
+
+![3](https://user-images.githubusercontent.com/77986239/222265395-e21f2f53-6180-4ae5-a68c-fb45fcbaf3e2.PNG)
 
 ## Quick Setup
 1. Fork then clone the project into local machine 🍴
 1. run 'npm install' in the root folder to install all the necessary packages 👩‍💻
+1. Might have to run **npm install react-mde --force**  since it refuses to install
 1. Happy coding 💻
 
-* Dependencies used: react-mde, nanoid, showdown
+* Dependencies used: react-mde, nanoid, showdown, react-split
 
 ### Check if an element exists before accessing its property
 - initialize the state either as the id of the very first note or an empty string and ensure notes at index of 0 exists before i try to access the id property of that note.
