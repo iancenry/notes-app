@@ -1,70 +1,60 @@
-# Getting Started with Create React App
+# Notes App
+npm install showdown react-split nanoid showdown
+npm install react-mde --force  - use this since refuses to install
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Dependencies
+react mde  - a markdown editor
+nanoid - generate ids
+showdown - transform markdown to html on client-side
 
-## Available Scripts
+### Check if an element exists before accessing its property
+- initialize the state either as the id of the very first note or an empty string and ensure notes at index of 0 exists before i try to access the id property of that note.
+```jsx
+    const [currentNoteId, setCurrentNoteId] = React.useState(
+        (notes[0] && notes[0].id) || ""
+    )
+```
 
-In the project directory, you can run:
+### Lazy state initilaization
+- Without it
+- How we are initializing from state when we pull from local storage since it is expensive to get item from localstorage every time state changes then triggering a re-render. It takes more effort for browser to dip into local storgae and get something every single state change, so react has implemented a way  for us to easily make it so that any expensive code that might be running inside our state initialization can happen only once - this is called lazy state initialization.
+- With every change, every code is run again even if the component doesn't use the value so with lazy state initialization we can prevent some codes from running with every render.
+- With it instead of providing a value, I can  provide a function that returns a value
+```jsx
+    //If this code is added in App.jsx 
+    //not lazy would run with every minor change e,g creating new note, editing etc
+    const [state, setState] = (React.useState(console.log("State initialization")))
 
-### `npm start`
+    // lazy state initialization will run only once not when chnages are made
+    const [state, setState] = (React.useState(()=>(console.log("State initialization"))))
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+    // Lazy State initialization - will only reach into localStorage the first time the app loads
+    const [notes, setNotes] = React.useState(()=>(JSON.parse(localStorage.getItem("notes")) || []))
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+> Connect with db
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    function updateNote(text) {
+ 
+        // setNotes(oldNotes => {
+        //     let newNotesArray = [];
+        //     for (const note of oldNotes) {
+        //         if(note.id === currentNoteId){
+        //             newNotesArray.unshift({ ...note, body: text })
+                    
+        //         }else{
+        //             newNotesArray.push(note)
+        //         }
+                
+        //     }
+        //     return newNotesArray            
 
-### `npm run build`
+        // })
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+        setNotes(oldNotes => oldNotes.map(oldNote => {
+            return oldNote.id === currentNoteId
+                ? { ...oldNote, body: text }
+                : oldNote
+        }))
+    }
