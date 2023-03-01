@@ -1,9 +1,11 @@
 # Notes App
-npm install showdown react-split nanoid showdown
+- Start view
 ![1](https://user-images.githubusercontent.com/77986239/222265365-1997463c-fe48-4d4a-b5e4-26725078214a.PNG)
 
+- Edit View
 ![2](https://user-images.githubusercontent.com/77986239/222265380-2e909ce6-5a93-4567-975f-33d78d251f5c.PNG)
 
+- Preview View
 ![3](https://user-images.githubusercontent.com/77986239/222265395-e21f2f53-6180-4ae5-a68c-fb45fcbaf3e2.PNG)
 
 ## Quick Setup
