@@ -10,11 +10,11 @@
 
 ## Quick Setup
 1. Fork then clone the project into local machine 🍴
-1. run 'npm install' in the root folder to install all the necessary packages 👩‍💻
+1. run `npm install` in the root folder to install all the necessary packages 👩‍💻
 1. Might have to run **npm install react-mde --force**  since it refuses to install
 1. Happy coding 💻
 
-* Dependencies used: react-mde, nanoid, showdown, react-split
+* Dependencies used: `react-mde`, `nanoid`, `showdown`, `react-split`
 
 ### Check if an element exists before accessing its property
 - initialize the state either as the id of the very first note or an empty string and ensure notes at index of 0 exists before i try to access the id property of that note.
